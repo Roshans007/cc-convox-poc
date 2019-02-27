@@ -1,0 +1,31 @@
+version: 0.2
+
+env:
+ plaintext:
+  appname: ""
+ parameter-store:
+  convox_password: ""
+  quay_username: ""
+  quay_password: ""
+
+phases:
+  install:
+    commands:
+      - echo Entered the install phase...
+      - apt-get update -y
+      - curl -L https://convox.com/cli/linux/convox -o /tmp/convox
+      - mv /tmp/convox /usr/local/bin/convox
+      - chmod 755 /usr/local/bin/convox
+      - docker login quay.io -u $quay_username -p $quay_password
+
+  build:
+    commands:
+      - echo Entered the build phase...
+      - echo Build started on `date`
+      - echo Build completed on `date`
+
+  post_build:
+    commands:
+      - echo Entered the post_build phase...
+      - echo Post build started on `date`
+      - echo Post build completed on `date`
